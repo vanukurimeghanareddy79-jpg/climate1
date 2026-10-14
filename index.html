@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimateShield – Smart Climate Risk & Environmental Protection System</title>
+  <meta name="description" content="ClimateShield is an educational climate-risk awareness tool. Understand heatwaves, floods, drought, and air pollution risks through interactive scenarios." />
+
+  <style>
+    /* ============================================================
+       GLOBAL RESET & VARIABLES
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #1b5e20;
+      --green:        #2e7d32;
+      --green-mid:    #388e3c;
+      --green-light:  #a5d6a7;
+      --green-pale:   #e8f5e9;
+      --blue-dark:    #0d47a1;
+      --blue:         #1565c0;
+      --blue-light:   #bbdefb;
+      --blue-pale:    #e3f2fd;
+      --orange:       #e65100;
+      --orange-light: #ffcc80;
+      --orange-pale:  #fff3e0;
+      --red:          #b71c1c;
+      --red-light:    #ef9a9a;
+      --red-pale:     #ffebee;
+      --yellow:       #f9a825;
+      --yellow-light: #fff9c4;
+      --yellow-pale:  #fffde7;
+      --gray-900:     #212121;
+      --gray-700:     #424242;
+      --gray-500:     #9e9e9e;
+      --gray-200:     #eeeeee;
+      --gray-100:     #f5f5f5;
+      --white:        #ffffff;
+      --card-shadow:  0 4px 16px rgba(0,0,0,0.10);
+      --radius:       14px;
+      --transition:   0.22s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 7px; }
+    ::-webkit-scrollbar-track { background: var(--gray-200); }
+    ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 4px; }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--blue-dark) 100%);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; gap: 16px; flex-wrap: wrap;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--white); padding: 12px 0;
+    }
+    .logo-icon { font-size: 2rem; }
+    .logo-text { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px; }
+    .logo-sub { font-size: 0.65rem; opacity: 0.8; font-weight: 400; letter-spacing: 0.3px; display: block; }
+    .nav-links {
+      display: flex; gap: 4px; flex-wrap: wrap; padding: 8px 0;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.18); color: var(--white);
+    }
+
+    /* ============================================================
+       HERO BANNER
+    ============================================================ */
+    .hero {
+      background: linear-gradient(135deg, var(--green-dark) 0%, #1a237e 100%);
+      color: var(--white); text-align: center;
+      padding: 60px 20px 40px;
+    }
+    .hero-icon { font-size: 4rem; margin-bottom: 12px; }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 1rem; opacity: 0.88; max-width: 640px; margin: 0 auto 20px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      padding: 6px 16px; border-radius: 30px; font-size: 0.8rem; letter-spacing: 0.5px;
+    }
+
+    /* ============================================================
+       SECTION LAYOUT
+    ============================================================ */
+    section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+    .section-title {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.4rem; font-weight: 700; color: var(--green-dark);
+      margin-bottom: 6px;
+    }
+    .section-sub { color: var(--gray-500); font-size: 0.88rem; margin-bottom: 24px; }
+    .section-divider {
+      height: 3px; background: linear-gradient(90deg, var(--green), var(--blue));
+      border-radius: 2px; margin-bottom: 28px;
+    }
+
+    /* ============================================================
+       CARDS
+    ============================================================ */
+    .card {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--card-shadow); padding: 22px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.14); }
+
+    .cards-grid { display: grid; gap: 18px; }
+    .cards-grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .cards-grid-3 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .cards-grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+    /* ============================================================
+       RISK SCORE CARDS (Dashboard)
+    ============================================================ */
+    .risk-card {
+      border-left: 5px solid var(--green);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .risk-card.heat   { border-color: var(--orange); }
+    .risk-card.flood  { border-color: var(--blue); }
+    .risk-card.drought{ border-color: var(--yellow); }
+    .risk-card.air    { border-color: var(--gray-500); }
+    .risk-card.eco    { border-color: var(--green-mid); }
+
+    .risk-card-header { display: flex; align-items: center; gap: 8px; }
+    .risk-icon { font-size: 1.6rem; }
+    .risk-label { font-size: 0.8rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+    .risk-score { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+    .risk-level { font-size: 0.82rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; display: inline-block; }
+
+    /* Progress bar */
+    .progress-wrap { background: var(--gray-200); border-radius: 10px; height: 8px; overflow: hidden; margin-top: 6px; }
+    .progress-bar  { height: 100%; border-radius: 10px; transition: width 0.6s ease; }
+
+    /* Risk level colors */
+    .level-low      { background: #c8e6c9; color: var(--green-dark); }
+    .level-moderate { background: var(--yellow-light); color: #5d4037; }
+    .level-high     { background: var(--orange-pale); color: var(--orange); }
+    .level-severe   { background: var(--red-pale); color: var(--red); }
+    .bar-low        { background: var(--green-mid); }
+    .bar-moderate   { background: var(--yellow); }
+    .bar-high       { background: var(--orange); }
+    .bar-severe     { background: var(--red); }
+
+    /* ============================================================
+       MAIN SCORE DISPLAY
+    ============================================================ */
+    .overall-score-card {
+      background: linear-gradient(135deg, var(--green-dark), #1a237e);
+      color: var(--white); border-radius: var(--radius);
+      padding: 32px; text-align: center; box-shadow: var(--card-shadow);
+    }
+    .overall-score-card .score-num {
+      font-size: 5rem; font-weight: 900; line-height: 1;
+    }
+    .overall-score-card .score-label { font-size: 1rem; opacity: 0.85; margin-top: 4px; }
+    .score-ring {
+      width: 140px; height: 140px; border-radius: 50%;
+      border: 10px solid rgba(255,255,255,0.2);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ============================================================
+       FORMS & INPUTS
+    ============================================================ */
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 5px; color: var(--gray-700); }
+    .form-group input,
+    .form-group select {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--gray-200); border-radius: 8px;
+      font-size: 0.95rem; transition: border-color var(--transition);
+      background: var(--white); color: var(--gray-900);
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none; border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(56,142,60,0.12);
+    }
+    .form-group .hint { font-size: 0.78rem; color: var(--gray-500); margin-top: 4px; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 22px; border: none; border-radius: 8px;
+      font-size: 0.92rem; font-weight: 600; cursor: pointer;
+      transition: all var(--transition); text-decoration: none;
+    }
+    .btn:focus { outline: 2px solid var(--green-mid); outline-offset: 2px; }
+    .btn-primary { background: var(--green); color: var(--white); }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
+    .btn-blue   { background: var(--blue); color: var(--white); }
+    .btn-blue:hover { background: var(--blue-dark); }
+    .btn-outline { background: transparent; border: 2px solid var(--green); color: var(--green); }
+    .btn-outline:hover { background: var(--green-pale); }
+    .btn-danger { background: var(--red); color: var(--white); }
+    .btn-danger:hover { background: #8b0000; }
+    .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
+    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+    /* Scenario buttons */
+    .scenario-btn {
+      background: var(--white); border: 2px solid var(--gray-200);
+      color: var(--gray-700); border-radius: 10px; padding: 10px 14px;
+      cursor: pointer; font-size: 0.83rem; font-weight: 600;
+      transition: all var(--transition); text-align: left;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .scenario-btn:hover { border-color: var(--green); color: var(--green-dark); background: var(--green-pale); }
+
+    /* ============================================================
+       RECOMMENDATION CARDS
+    ============================================================ */
+    .rec-card {
+      background: var(--green-pale); border-left: 4px solid var(--green);
+      border-radius: 10px; padding: 14px 18px; margin-bottom: 12px;
+    }
+    .rec-card.heat   { background: var(--orange-pale); border-color: var(--orange); }
+    .rec-card.flood  { background: var(--blue-pale);   border-color: var(--blue); }
+    .rec-card.drought{ background: var(--yellow-pale); border-color: var(--yellow); }
+    .rec-card.air    { background: #f3e5f5;            border-color: #7b1fa2; }
+    .rec-card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+    .rec-card ul { padding-left: 18px; font-size: 0.85rem; color: var(--gray-700); }
+    .rec-card ul li { margin-bottom: 3px; }
+
+    /* ============================================================
+       ALGORITHM EXPLANATION BOX
+    ============================================================ */
+    .algo-box {
+      background: var(--blue-pale); border-left: 4px solid var(--blue);
+      border-radius: 10px; padding: 16px 20px; margin-top: 20px;
+      font-size: 0.85rem;
+    }
+    .algo-box h4 { color: var(--blue-dark); margin-bottom: 8px; font-size: 0.95rem; }
+    .algo-box ul { padding-left: 18px; color: var(--gray-700); }
+    .algo-box ul li { margin-bottom: 4px; }
+
+    /* ============================================================
+       DISCLAIMER / WARNING BANNER
+    ============================================================ */
+    .disclaimer {
+      background: var(--yellow-pale); border: 1px solid var(--yellow);
+      border-radius: 10px; padding: 12px 18px; font-size: 0.82rem;
+      color: #5d4037; margin-bottom: 20px;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .disclaimer .di { flex-shrink: 0; font-size: 1.1rem; }
+
+    /* ============================================================
+       CARBON FOOTPRINT CALCULATOR
+    ============================================================ */
+    .cf-result {
+      background: linear-gradient(135deg, var(--green-dark), #1a237e);
+      color: var(--white); border-radius: var(--radius);
+      padding: 24px; text-align: center; margin-top: 20px;
+    }
+    .cf-result .cf-num { font-size: 3rem; font-weight: 900; }
+    .cf-result .cf-unit { font-size: 0.9rem; opacity: 0.8; }
+    .cf-breakdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 14px; }
+    .cf-item { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 10px; text-align: center; }
+    .cf-item .ci-num { font-size: 1.3rem; font-weight: 700; }
+    .cf-item .ci-label { font-size: 0.72rem; opacity: 0.8; }
+
+    /* ============================================================
+       ECO ACTION TRACKER
+    ============================================================ */
+    .action-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+    .action-card {
+      background: var(--white); border-radius: 12px; padding: 16px;
+      box-shadow: var(--card-shadow); cursor: pointer;
+      border: 2px solid transparent; transition: all var(--transition);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .action-card:hover { border-color: var(--green-light); background: var(--green-pale); }
+    .action-card.done { border-color: var(--green); background: var(--green-pale); }
+    .action-card .ac-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .action-card .ac-text h4 { font-size: 0.88rem; font-weight: 700; }
+    .action-card .ac-text p  { font-size: 0.75rem; color: var(--gray-500); }
+    .action-card .ac-check { margin-left: auto; font-size: 1.3rem; flex-shrink: 0; }
+
+    .eco-progress {
+      background: var(--white); border-radius: var(--radius); padding: 20px;
+      box-shadow: var(--card-shadow); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+    .eco-score-circle {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: conic-gradient(var(--green) 0%, var(--gray-200) 0%);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.1rem; color: var(--green-dark);
+      flex-shrink: 0; transition: all 0.4s ease;
+      box-shadow: 0 0 0 5px var(--green-pale);
+    }
+    .eco-info { flex: 1; min-width: 180px; }
+    .eco-info h3 { font-size: 1rem; font-weight: 700; }
+    .eco-info p  { font-size: 0.82rem; color: var(--gray-500); }
+
+    /* ============================================================
+       CHECKLIST
+    ============================================================ */
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--gray-200);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+      accent-color: var(--green); cursor: pointer;
+    }
+    .checklist label { cursor: pointer; font-size: 0.9rem; }
+    .checklist label.checked { text-decoration: line-through; color: var(--gray-500); }
+
+    /* ============================================================
+       AWARENESS SECTION
+    ============================================================ */
+    .awareness-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .tab-btn {
+      padding: 8px 18px; border-radius: 30px; border: 2px solid var(--gray-200);
+      background: var(--white); cursor: pointer; font-size: 0.85rem; font-weight: 600;
+      transition: all var(--transition); color: var(--gray-700);
+    }
+    .tab-btn:hover, .tab-btn.active { background: var(--green); border-color: var(--green); color: var(--white); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .awareness-card {
+      background: var(--white); border-radius: var(--radius); padding: 24px;
+      box-shadow: var(--card-shadow); font-size: 0.9rem; line-height: 1.7;
+    }
+    .awareness-card h3 { color: var(--green-dark); margin-bottom: 12px; }
+    .awareness-card p  { color: var(--gray-700); margin-bottom: 10px; }
+    .awareness-card ul { padding-left: 20px; color: var(--gray-700); }
+    .awareness-card ul li { margin-bottom: 6px; }
+
+    /* Stat boxes inside awareness */
+    .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin: 16px 0; }
+    .stat-box {
+      background: var(--green-pale); border-radius: 10px; padding: 14px;
+      text-align: center; border-left: 3px solid var(--green);
+    }
+    .stat-box .stat-n { font-size: 1.6rem; font-weight: 800; color: var(--green-dark); }
+    .stat-box .stat-l { font-size: 0.75rem; color: var(--gray-700); }
+
+    /* ============================================================
+       VALIDATION / ALERTS
+    ============================================================ */
+    .alert {
+      padding: 12px 16px; border-radius: 8px; margin-bottom: 14px;
+      font-size: 0.87rem; display: flex; align-items: flex-start; gap: 8px;
+    }
+    .alert-error   { background: var(--red-pale);    color: var(--red);    border-left: 4px solid var(--red); }
+    .alert-success { background: var(--green-pale);  color: var(--green-dark); border-left: 4px solid var(--green); }
+    .alert-info    { background: var(--blue-pale);   color: var(--blue-dark);  border-left: 4px solid var(--blue); }
+    .hidden { display: none !important; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--gray-900); color: rgba(255,255,255,0.75);
+      padding: 30px 20px; text-align: center; font-size: 0.82rem;
+      margin-top: 40px; line-height: 1.8;
+    }
+    footer strong { color: var(--green-light); }
+    footer .footer-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 10px; }
+    footer .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color var(--transition); }
+    footer .footer-links a:hover { color: var(--green-light); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 600px) {
+      .nav-links { gap: 2px; }
+      .nav-links a { padding: 5px 8px; font-size: 0.78rem; }
+      .logo-text { font-size: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+      section { padding: 28px 14px; }
+    }
+
+    /* ============================================================
+       MISC UTILITIES
+    ============================================================ */
+    .tag {
+      display: inline-block; padding: 2px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; margin-left: 8px;
+    }
+    .tag-sim  { background: #fff3e0; color: var(--orange); border: 1px solid var(--orange-light); }
+    .tag-edu  { background: var(--blue-pale); color: var(--blue-dark); border: 1px solid var(--blue-light); }
+
+    summary { cursor: pointer; font-weight: 600; font-size: 0.9rem; color: var(--green-dark); }
+    details[open] summary { margin-bottom: 8px; }
+    details { margin-bottom: 10px; }
+    details > *:not(summary) { font-size: 0.85rem; color: var(--gray-700); padding-left: 12px; }
+
+    hr.sep { border: none; border-top: 1px solid var(--gray-200); margin: 20px 0; }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#dashboard" class="logo" aria-label="ClimateShield Home">
+      <span class="logo-icon" aria-hidden="true">🌍</span>
+      <span class="logo-text">ClimateShield
+        <span class="logo-sub">Smart Climate Risk &amp; Environmental Protection</span>
+      </span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#dashboard"     class="active">Dashboard</a></li>
+      <li><a href="#assessment">Risk Tool</a></li>
+      <li><a href="#carbon">Carbon</a></li>
+      <li><a href="#tracker">Eco Tracker</a></li>
+      <li><a href="#checklist">Preparedness</a></li>
+      <li><a href="#awareness">Learn</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<div class="hero">
+  <div class="hero-icon" aria-hidden="true">🛡️🌿</div>
+  <h1>ClimateShield</h1>
+  <p>Understand climate risks, prepare for extreme weather, estimate your carbon footprint, and build eco-friendly habits — all in one place.</p>
+  <span class="hero-badge">⚠️ Educational Prototype — Not Official Weather Forecasts</span>
+</div>
+
+<!-- ============================================================
+     SECTION 1: DASHBOARD
+============================================================ -->
+<section id="dashboard" aria-labelledby="dash-heading">
+  <h2 class="section-title" id="dash-heading">📊 Climate Risk Dashboard <span class="tag tag-sim">Sample Data</span></h2>
+  <p class="section-sub">An overview of illustrative climate risks. Use the Risk Assessment Tool below to enter your own values.</p>
+  <div class="section-divider"></div>
+
+  <div class="disclaimer" role="note">
+    <span class="di">⚠️</span>
+    <span>The values shown here are <strong>simulated sample data</strong> for demonstration purposes only. They do not represent real-time conditions at any location. Use the <a href="#assessment" style="color:inherit;font-weight:700;">Risk Assessment Tool</a> to enter your own values.</span>
+  </div>
+
+  <!-- Overall Score -->
+  <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;align-items:start;margin-bottom:24px;">
+    <div class="overall-score-card">
+      <div class="score-ring">
+        <div class="score-num" id="dash-overall-num">42</div>
+        <div class="score-label" id="dash-overall-label">Moderate</div>
+      </div>
+      <div style="font-size:0.8rem;opacity:0.7;">Overall Risk Score</div>
+      <div style="margin-top:10px;font-size:0.78rem;opacity:0.6;">Scale: 0 (Low) → 100 (Severe)</div>
+    </div>
+
+    <div style="background:var(--white);border-radius:var(--radius);padding:20px;box-shadow:var(--card-shadow);">
+      <h3 style="margin-bottom:12px;font-size:1rem;color:var(--gray-700);">📌 Risk Factor Summary</h3>
+      <div id="dash-summary-bars">
+        <!-- Filled by JS -->
+      </div>
+      <div style="margin-top:14px;font-size:0.8rem;color:var(--gray-500);">
+        Based on sample inputs: Temp 38°C · Rainfall Moderate · AQI 85 · Water Availability 60%
+      </div>
+    </div>
+  </div>
+
+  <!-- Risk Cards -->
+  <div class="cards-grid cards-grid-4">
+    <div class="card risk-card heat">
+      <div class="risk-card-header">
+        <span class="risk-icon" aria-hidden="true">🌡️</span>
+        <span class="risk-label">Heatwave Risk</span>
+      </div>
+      <div class="risk-score" id="dc-heat" style="color:var(--orange)">55</div>
+      <span class="risk-level level-high" id="dc-heat-lv">High</span>
+      <div class="progress-wrap"><div class="progress-bar bar-high" id="dc-heat-bar" style="width:55%"></div></div>
+      <small style="color:var(--gray-500);font-size:0.78rem;">Temp: 38°C — above safe threshold</small>
+    </div>
+
+    <div class="card risk-card flood">
+      <div class="risk-card-header">
+        <span class="risk-icon" aria-hidden="true">🌊</span>
+        <span class="risk-label">Flood Risk</span>
+      </div>
+      <div class="risk-score" id="dc-flood" style="color:var(--blue)">35</div>
+      <span class="risk-level level-moderate" id="dc-flood-lv">Moderate</span>
+      <div class="progress-wrap"><div class="progress-bar bar-moderate" id="dc-flood-bar" style="width:35%"></div></div>
+      <small style="color:var(--gray-500);font-size:0.78rem;">Moderate recent rainfall recorded</small>
+    </div>
+
+    <div class="card risk-card drought">
+      <div class="risk-card-header">
+        <span class="risk-icon" aria-hidden="true">🏜️</span>
+        <span class="risk-label">Drought Risk</span>
+      </div>
+      <div class="risk-score" id="dc-drought" style="color:var(--yellow)">30</div>
+      <span class="risk-level level-moderate" id="dc-drought-lv">Moderate</span>
+      <div class="progress-wrap"><div class="progress-bar bar-moderate" id="dc-drought-bar" style="width:30%"></div></div>
+      <small style="color:var(--gray-500);font-size:0.78rem;">Water availability at 60%</small>
+    </div>
+
+    <div class="card risk-card air">
+      <div class="risk-card-header">
+        <span class="risk-icon" aria-hidden="true">💨</span>
+        <span class="risk-label">Air Quality Risk</span>
+      </div>
+      <div class="risk-score" id="dc-air" style="color:var(--gray-700)">40</div>
+      <span class="risk-level level-moderate" id="dc-air-lv">Moderate</span>
+      <div class="progress-wrap"><div class="progress-bar bar-moderate" id="dc-air-bar" style="width:40%"></div></div>
+      <small style="color:var(--gray-500);font-size:0.78rem;">AQI: 85 — Moderate category</small>
+    </div>
+
+    <div class="card risk-card eco" style="grid-column:1/-1;border-left-width:3px;">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span style="font-size:1.5rem;" aria-hidden="true">♻️</span>
+        <div>
+          <div class="risk-label">Environmental Sustainability Score</div>
+          <div style="font-size:1.5rem;font-weight:800;color:var(--green-mid);">68 / 100</div>
+        </div>
+        <div class="progress-wrap" style="flex:1;min-width:160px;">
+          <div class="progress-bar bar-low" style="width:68%"></div>
+        </div>
+        <small style="color:var(--gray-500);font-size:0.78rem;">Based on eco-actions completed. Track actions in the <a href="#tracker" style="color:var(--green);">Eco Tracker</a>.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2: CLIMATE RISK ASSESSMENT TOOL
+============================================================ -->
+<section id="assessment" style="background:var(--gray-100);" aria-labelledby="assess-heading">
+  <h2 class="section-title" id="assess-heading">🔍 Climate Risk Assessment Tool <span class="tag tag-edu">Educational</span></h2>
+  <p class="section-sub">Enter environmental values below to calculate an illustrative risk score. All calculations run locally in your browser.</p>
+  <div class="section-divider"></div>
+
+  <div class="disclaimer" role="note">
+    <span class="di">⚠️</span>
+    <span><strong>Disclaimer:</strong> This tool uses a simplified rule-based algorithm for <em>educational purposes only</em>. Results are estimates — not scientific climate predictions, official weather forecasts, or verified emergency warnings. Always consult trusted local authorities and weather services for real-world decisions.</span>
+  </div>
+
+  <!-- Scenario Buttons -->
+  <div style="background:var(--white);border-radius:var(--radius);padding:20px;box-shadow:var(--card-shadow);margin-bottom:24px;">
+    <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:12px;color:var(--gray-700);">⚡ Quick Test Scenarios <span class="tag tag-edu">Simulated</span></h3>
+    <p style="font-size:0.8rem;color:var(--gray-500);margin-bottom:12px;">Click a scenario to populate the form with illustrative values for testing.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="scenario-btn" onclick="loadScenario('heat')"      aria-label="Load extreme heat scenario">🌡️ Extreme Summer Heat</button>
+      <button class="scenario-btn" onclick="loadScenario('flood')"     aria-label="Load heavy rainfall scenario">🌊 Heavy Rainfall &amp; Flooding</button>
+      <button class="scenario-btn" onclick="loadScenario('drought')"   aria-label="Load drought scenario">🏜️ Prolonged Drought</button>
+      <button class="scenario-btn" onclick="loadScenario('air')"       aria-label="Load air pollution scenario">💨 High Air Pollution</button>
+      <button class="scenario-btn" onclick="loadScenario('normal')"    aria-label="Load normal conditions scenario">✅ Normal Conditions</button>
+      <button class="scenario-btn" onclick="loadScenario('community')" aria-label="Load sustainable community scenario">🌿 Sustainable Community</button>
+    </div>
+  </div>
+
+  <!-- Input Form -->
+  <div class="card" style="margin-bottom:24px;">
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:16px;color:var(--gray-700);">📋 Environmental Conditions Input</h3>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="inp-city">📍 City / Location Name</label>
+        <input type="text" id="inp-city" placeholder="e.g. Hyderabad, Mumbai..." maxlength="60" />
+        <span class="hint">Used for display purposes only — no location data is sent anywhere.</span>
+      </div>
+      <div class="form-group">
+        <label for="inp-temp">🌡️ Temperature (°C)</label>
+        <input type="number" id="inp-temp" min="-20" max="60" placeholder="e.g. 38" />
+        <span class="hint">Range: -20 to 60 °C</span>
+      </div>
+      <div class="form-group">
+        <label for="inp-rainfall">🌧️ Current Rainfall Intensity</label>
+        <select id="inp-rainfall">
+          <option value="">-- Select intensity --</option>
+          <option value="0">None (dry)</option>
+          <option value="1">Light</option>
+          <option value="2">Moderate</option>
+          <option value="3">Heavy</option>
+          <option value="4">Extreme / Torrential</option>
+        </select>
+        <span class="hint">Choose based on recent or current observations.</span>
+      </div>
+      <div class="form-group">
+        <label for="inp-recent-rain">🗓️ Recent Rainfall (past 7 days)</label>
+        <select id="inp-recent-rain">
+          <option value="">-- Select --</option>
+          <option value="0">Very dry — no rainfall</option>
+          <option value="1">Little — below normal</option>
+          <option value="2">Normal</option>
+          <option value="3">Above normal</option>
+          <option value="4">Excessive — well above normal</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="inp-water">💧 Water Availability (%)</label>
+        <input type="number" id="inp-water" min="0" max="100" placeholder="e.g. 70" />
+        <span class="hint">0% = severe shortage · 100% = abundant. Estimate from local knowledge.</span>
+      </div>
+      <div class="form-group">
+        <label for="inp-aqi">💨 Air Quality Index (AQI)</label>
+        <input type="number" id="inp-aqi" min="0" max="500" placeholder="e.g. 85" />
+        <span class="hint">0–50: Good · 51–100: Moderate · 101–150: Unhealthy for sensitive groups · 151+: Unhealthy</span>
+      </div>
+      <div class="form-group">
+        <label for="inp-flood-hist">🏚️ Local Flood History</label>
+        <select id="inp-flood-hist">
+          <option value="">-- Select --</option>
+          <option value="0">No history of flooding</option>
+          <option value="1">Flooded occasionally (once in 10+ years)</option>
+          <option value="2">Floods every few years</option>
+          <option value="3">Floods frequently (annually or more)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="inp-dry-days">☀️ Consecutive Dry Days</label>
+        <input type="number" id="inp-dry-days" min="0" max="365" placeholder="e.g. 20" />
+        <span class="hint">How many consecutive days without significant rainfall?</span>
+      </div>
+    </div>
+
+    <div id="assess-error" class="alert alert-error hidden" role="alert"></div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="runAssessment()" aria-label="Analyze climate risk">
+        🔬 Analyze Climate Risk
+      </button>
+      <button class="btn btn-outline" onclick="resetAssessment()" aria-label="Reset form">
+        🔄 Reset
+      </button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="assess-results" class="hidden">
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;align-items:start;margin-bottom:20px;">
+      <div class="overall-score-card">
+        <div class="score-ring">
+          <div class="score-num" id="res-score">--</div>
+          <div class="score-label" id="res-level">--</div>
+        </div>
+        <div id="res-city-label" style="font-size:0.85rem;opacity:0.85;"></div>
+        <div style="font-size:0.75rem;opacity:0.6;margin-top:6px;">Overall Climate Risk Score</div>
+      </div>
+      <div style="background:var(--white);border-radius:var(--radius);padding:20px;box-shadow:var(--card-shadow);">
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:14px;color:var(--gray-700);">📊 Individual Risk Scores</h3>
+        <div id="res-bars"></div>
+        <div class="algo-box" id="res-algo-box">
+          <h4>🧮 How the Score Was Calculated</h4>
+          <ul id="res-algo-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gray-700);">💡 Safety Recommendations</h3>
+    <div id="res-recommendations"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3: CARBON FOOTPRINT ESTIMATOR
+============================================================ -->
+<section id="carbon" aria-labelledby="carbon-heading">
+  <h2 class="section-title" id="carbon-heading">🌫️ Carbon Footprint Estimator <span class="tag tag-edu">Educational</span></h2>
+  <p class="section-sub">Estimate your approximate monthly carbon footprint using simplified, transparent emission factors. Results are approximate estimates, not verified measurements.</p>
+  <div class="section-divider"></div>
+
+  <div class="disclaimer" role="note">
+    <span class="di">ℹ️</span>
+    <span>Emission factors used are simplified approximations. Your actual footprint depends on local energy sources, vehicle efficiency, diet, and many other variables. This tool is for educational awareness only.</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+    <div class="card">
+      <h3 style="font-size:0.98rem;font-weight:700;margin-bottom:16px;color:var(--gray-700);">📝 Monthly Habit Inputs</h3>
+
+      <div class="form-group">
+        <label for="cf-car">🚗 Car travel (km/month)</label>
+        <input type="number" id="cf-car" min="0" max="10000" value="300" oninput="calcCarbon()" />
+        <span class="hint">Factor used: ~0.21 kg CO₂ per km (average petrol car)</span>
+      </div>
+      <div class="form-group">
+        <label for="cf-bus">🚌 Bus / public transport (km/month)</label>
+        <input type="number" id="cf-bus" min="0" max="10000" value="100" oninput="calcCarbon()" />
+        <span class="hint">Factor: ~0.089 kg CO₂ per km</span>
+      </div>
+      <div class="form-group">
+        <label for="cf-bike">🚲 Walking / cycling (km/month)</label>
+        <input type="number" id="cf-bike" min="0" max="5000" value="20" oninput="calcCarbon()" />
+        <span class="hint">Zero direct emissions — great for short trips!</span>
+      </div>
+      <div class="form-group">
+        <label for="cf-elec">⚡ Electricity consumption (kWh/month)</label>
+        <input type="number" id="cf-elec" min="0" max="5000" value="150" oninput="calcCarbon()" />
+        <span class="hint">Factor: ~0.7 kg CO₂ per kWh (India grid average)</span>
+      </div>
+      <div class="form-group">
+        <label for="cf-meat">🥩 Meat meals per week</label>
+        <input type="number" id="cf-meat" min="0" max="21" value="5" oninput="calcCarbon()" />
+        <span class="hint">Factor: ~2.5 kg CO₂ per meat meal vs ~0.5 kg vegetarian</span>
+      </div>
+      <div class="form-group">
+        <label for="cf-recycle">♻️ Recycling practice</label>
+        <select id="cf-recycle" onchange="calcCarbon()">
+          <option value="0">Don't recycle</option>
+          <option value="1" selected>Some recycling</option>
+          <option value="2">Recycle most waste</option>
+        </select>
+        <span class="hint">Recycling reduces waste processing emissions.</span>
+      </div>
+
+      <button class="btn btn-primary" onclick="calcCarbon()" style="margin-top:8px;">
+        ♻️ Calculate My Footprint
+      </button>
+    </div>
+
+    <div>
+      <div class="cf-result" id="cf-result-card">
+        <div style="font-size:0.85rem;opacity:0.8;margin-bottom:6px;">Estimated Monthly Carbon Footprint</div>
+        <div class="cf-num" id="cf-total">--</div>
+        <div class="cf-unit">kg CO₂-equivalent / month</div>
+        <div class="cf-breakdown" id="cf-breakdown"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px;" id="cf-tips-card">
+        <h4 style="font-size:0.92rem;font-weight:700;margin-bottom:10px;color:var(--green-dark);">🌱 Tips to Reduce Your Footprint</h4>
+        <ul id="cf-tips-list" style="font-size:0.84rem;color:var(--gray-700);padding-left:18px;"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4: ECO-FRIENDLY ACTION TRACKER
+============================================================ -->
+<section id="tracker" style="background:var(--gray-100);" aria-labelledby="tracker-heading">
+  <h2 class="section-title" id="tracker-heading">♻️ Eco-Friendly Action Tracker</h2>
+  <p class="section-sub">Track your eco-friendly habits. Click an action to mark it as completed. Progress is saved in your browser (local storage) and stays on your device.</p>
+  <div class="section-divider"></div>
+
+  <div class="eco-progress" id="eco-progress-bar">
+    <div class="eco-score-circle" id="eco-circle">0%</div>
+    <div class="eco-info">
+      <h3 id="eco-prog-title">Start your eco journey!</h3>
+      <p id="eco-prog-sub">Mark actions below to build your sustainability score.</p>
+    </div>
+    <button class="btn btn-danger btn-sm" onclick="resetTracker()" aria-label="Reset all eco actions">
+      🔄 Reset Actions
+    </button>
+  </div>
+
+  <div class="action-grid" id="action-grid">
+    <!-- Rendered by JS -->
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5: CLIMATE PREPAREDNESS CHECKLIST
+============================================================ -->
+<section id="checklist" aria-labelledby="check-heading">
+  <h2 class="section-title" id="check-heading">✅ Climate Preparedness Checklist</h2>
+  <p class="section-sub">Mark items to track your preparedness for extreme weather events. Saved in browser local storage.</p>
+  <div class="section-divider"></div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;">
+    <div class="card">
+      <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:14px;color:var(--green-dark);">🆘 Emergency Essentials</h3>
+      <ul class="checklist" id="checklist-emergency"></ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:14px;color:var(--blue-dark);">🏠 Home Preparedness</h3>
+      <ul class="checklist" id="checklist-home"></ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:14px;color:var(--orange);">📱 Communication &amp; Information</h3>
+      <ul class="checklist" id="checklist-comm"></ul>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+    <div style="font-size:0.9rem;color:var(--gray-700);">
+      Completed: <strong id="check-done">0</strong> / <strong id="check-total">0</strong> items
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="resetChecklist()">🔄 Reset Checklist</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6: CLIMATE CHANGE AWARENESS CENTER
+============================================================ -->
+<section id="awareness" style="background:var(--gray-100);" aria-labelledby="aware-heading">
+  <h2 class="section-title" id="aware-heading">📚 Climate Change Awareness Center</h2>
+  <p class="section-sub">Learn about climate change in simple, student-friendly language. Select a topic below.</p>
+  <div class="section-divider"></div>
+
+  <div class="awareness-tabs" role="tablist" aria-label="Awareness topics">
+    <button class="tab-btn active" onclick="showTab('what',this)"    role="tab" aria-selected="true">🌍 What is Climate Change?</button>
+    <button class="tab-btn"        onclick="showTab('causes',this)"  role="tab" aria-selected="false">🏭 Causes</button>
+    <button class="tab-btn"        onclick="showTab('effects',this)" role="tab" aria-selected="false">🌪️ Effects</button>
+    <button class="tab-btn"        onclick="showTab('vs',this)"      role="tab" aria-selected="false">☁️ Weather vs. Climate</button>
+    <button class="tab-btn"        onclick="showTab('action',this)"  role="tab" aria-selected="false">💪 What Can We Do?</button>
+  </div>
+
+  <!-- Tab: What is Climate Change -->
+  <div id="tab-what" class="tab-content active" role="tabpanel">
+    <div class="awareness-card">
+      <h3>🌍 What is Climate Change?</h3>
+      <p>Climate change refers to long-term shifts in global temperatures and weather patterns. While some climate change occurs naturally, since the 1800s, human activities — especially burning fossil fuels — have been the main driver of climate change.</p>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-n">1.1°C</div><div class="stat-l">Average warming since pre-industrial times (illustrative figure)</div></div>
+        <div class="stat-box"><div class="stat-n">420 ppm</div><div class="stat-l">Approx. CO₂ concentration in atmosphere (illustrative)</div></div>
+        <div class="stat-box"><div class="stat-n">2050</div><div class="stat-l">Target year for net-zero emissions (many countries)</div></div>
+        <div class="stat-box"><div class="stat-n">3.3B</div><div class="stat-l">People highly vulnerable to climate impacts (illustrative)</div></div>
+      </div>
+      <p>The greenhouse effect is a natural process that keeps Earth warm. Greenhouse gases (GHGs) like carbon dioxide (CO₂), methane (CH₄), and nitrous oxide (N₂O) trap heat in the atmosphere. Human activities have dramatically increased GHG concentrations, enhancing this effect and warming the planet.</p>
+      <h3 style="margin-top:16px;">🔬 Key Greenhouse Gases</h3>
+      <ul>
+        <li><strong>Carbon Dioxide (CO₂):</strong> Released by burning coal, oil, and gas. Stays in the atmosphere for hundreds of years.</li>
+        <li><strong>Methane (CH₄):</strong> Produced by livestock, landfills, and natural gas leaks. More potent than CO₂ but shorter-lived.</li>
+        <li><strong>Nitrous Oxide (N₂O):</strong> Emitted from agriculture, soils, and fertilizers.</li>
+        <li><strong>Water Vapour:</strong> A natural amplifier — as Earth warms, more water evaporates, enhancing warming.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tab: Causes -->
+  <div id="tab-causes" class="tab-content" role="tabpanel">
+    <div class="awareness-card">
+      <h3>🏭 Main Causes of Climate Change</h3>
+      <details><summary>🔥 Burning Fossil Fuels</summary>
+        <p>Coal, oil, and natural gas release CO₂ and other GHGs when burned for electricity, heat, and transport. This is the largest source of global emissions.</p>
+      </details>
+      <details><summary>🌲 Deforestation</summary>
+        <p>Trees absorb CO₂. When forests are cleared for agriculture or urban development, stored carbon is released and the planet loses a crucial carbon sink.</p>
+      </details>
+      <details><summary>🐄 Agriculture &amp; Food Systems</summary>
+        <p>Livestock (especially cattle) produce methane during digestion. Rice paddies, fertilizers, and food waste also contribute significantly.</p>
+      </details>
+      <details><summary>🏗️ Industry &amp; Manufacturing</summary>
+        <p>Cement, steel, and chemical production release large amounts of CO₂ and other GHGs, often through chemical reactions that cannot easily be replaced.</p>
+      </details>
+      <details><summary>🗑️ Waste &amp; Landfills</summary>
+        <p>Decomposing organic waste in landfills releases methane. Burning waste adds CO₂ and toxic pollutants to the air.</p>
+      </details>
+      <details><summary>🏙️ Urbanisation</summary>
+        <p>Cities replace natural vegetation with heat-absorbing surfaces (concrete, asphalt), creating "urban heat islands" and increasing local temperatures.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- Tab: Effects -->
+  <div id="tab-effects" class="tab-content" role="tabpanel">
+    <div class="awareness-card">
+      <h3>🌪️ Effects of Climate Change</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:16px;">
+        <div style="background:var(--red-pale);border-radius:10px;padding:14px;">
+          <h4 style="color:var(--red);margin-bottom:6px;">🌡️ Extreme Heat</h4>
+          <p style="font-size:0.83rem;">More frequent and intense heatwaves affect health, agriculture, and outdoor workers.</p>
+        </div>
+        <div style="background:var(--blue-pale);border-radius:10px;padding:14px;">
+          <h4 style="color:var(--blue);margin-bottom:6px;">🌊 Flooding</h4>
+          <p style="font-size:0.83rem;">Heavier rainfall events and rising sea levels increase the frequency and severity of floods.</p>
+        </div>
+        <div style="background:var(--orange-pale);border-radius:10px;padding:14px;">
+          <h4 style="color:var(--orange);margin-bottom:6px;">🏜️ Drought</h4>
+          <p style="font-size:0.83rem;">Changing rainfall patterns cause prolonged droughts affecting water supplies and crop yields.</p>
+        </div>
+        <div style="background:#f3e5f5;border-radius:10px;padding:14px;">
+          <h4 style="color:#7b1fa2;margin-bottom:6px;">🦋 Biodiversity Loss</h4>
+          <p style="font-size:0.83rem;">Shifting habitats and extreme events threaten plant and animal species worldwide.</p>
+        </div>
+        <div style="background:var(--yellow-pale);border-radius:10px;padding:14px;">
+          <h4 style="color:var(--yellow);margin-bottom:6px;">🌾 Agriculture</h4>
+          <p style="font-size:0.83rem;">Unpredictable seasons, heat stress, and water scarcity reduce crop yields and food security.</p>
+        </div>
+        <div style="background:var(--green-pale);border-radius:10px;padding:14px;">
+          <h4 style="color:var(--green-dark);margin-bottom:6px;">🏥 Public Health</h4>
+          <p style="font-size:0.83rem;">Heat-related illness, spread of diseases, air pollution, and mental health impacts all increase.</p>
+        </div>
+      </div>
+      <p>Climate change affects communities differently. Those with fewer resources — including many farming communities, coastal populations, and low-income households — often face the greatest challenges.</p>
+    </div>
+  </div>
+
+  <!-- Tab: Weather vs Climate -->
+  <div id="tab-vs" class="tab-content" role="tabpanel">
+    <div class="awareness-card">
+      <h3>☁️ Weather vs. Climate</h3>
+      <p>People often confuse weather and climate. Understanding the difference is important:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;">
+        <div style="background:var(--blue-pale);border-radius:10px;padding:16px;">
+          <h4 style="color:var(--blue-dark);margin-bottom:8px;">☀️ Weather</h4>
+          <ul>
+            <li>Short-term atmospheric conditions</li>
+            <li>Hours to days timescale</li>
+            <li>Example: "It's raining today"</li>
+            <li>Changes frequently</li>
+            <li>Measured with thermometers, rain gauges, barometers</li>
+          </ul>
+        </div>
+        <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+          <h4 style="color:var(--green-dark);margin-bottom:8px;">🌍 Climate</h4>
+          <ul>
+            <li>Long-term average conditions</li>
+            <li>Decades to centuries timescale</li>
+            <li>Example: "This region gets monsoon rains every June"</li>
+            <li>Changes slowly over time</li>
+            <li>Studied through long-term data and climate models</li>
+          </ul>
+        </div>
+      </div>
+      <p><strong>Simple way to remember:</strong> Climate is what you expect; weather is what you get.</p>
+      <p>A single cold winter does not disprove climate change — scientists look at trends across decades to understand how the climate is changing.</p>
+    </div>
+  </div>
+
+  <!-- Tab: What Can We Do -->
+  <div id="tab-action" class="tab-content" role="tabpanel">
+    <div class="awareness-card">
+      <h3>💪 What Can Individuals and Communities Do?</h3>
+      <p>While governments and industries must lead large-scale change, individuals and communities also play an important role.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0;">
+        <div style="background:var(--green-pale);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:1.8rem;">🚶</div>
+          <h4 style="font-size:0.85rem;color:var(--green-dark);margin:6px 0;">Move Sustainably</h4>
+          <p style="font-size:0.78rem;color:var(--gray-700);">Walk, cycle, or use public transport when possible.</p>
+        </div>
+        <div style="background:var(--blue-pale);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:1.8rem;">💡</div>
+          <h4 style="font-size:0.85rem;color:var(--blue-dark);margin:6px 0;">Save Energy</h4>
+          <p style="font-size:0.78rem;color:var(--gray-700);">Switch off lights, use energy-efficient appliances, consider solar if accessible.</p>
+        </div>
+        <div style="background:var(--orange-pale);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:1.8rem;">🥗</div>
+          <h4 style="font-size:0.85rem;color:var(--orange);margin:6px 0;">Eat Thoughtfully</h4>
+          <p style="font-size:0.78rem;color:var(--gray-700);">Reducing meat consumption and food waste can lower your carbon footprint.</p>
+        </div>
+        <div style="background:#f3e5f5;border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:1.8rem;">♻️</div>
+          <h4 style="font-size:0.85rem;color:#7b1fa2;margin:6px 0;">Reduce &amp; Reuse</h4>
+          <p style="font-size:0.78rem;color:var(--gray-700);">Buy less, reuse what you have, separate recyclable waste where facilities exist.</p>
+        </div>
+        <div style="background:var(--yellow-pale);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:1.8rem;">🌳</div>
+          <h4 style="font-size:0.85rem;color:#5d4037;margin:6px 0;">Plant &amp; Protect Trees</h4>
+          <p style="font-size:0.78rem;color:var(--gray-700);">Participate in local tree-planting drives and protect existing green spaces.</p>
+        </div>
+        <div style="background:var(--green-pale);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:1.8rem;">📢</div>
+          <h4 style="font-size:0.85rem;color:var(--green-dark);margin:6px 0;">Spread Awareness</h4>
+          <p style="font-size:0.78rem;color:var(--gray-700);">Talk to family and friends. Support local environmental initiatives and policies.</p>
+        </div>
+      </div>
+      <p>Remember: not everyone has equal access to the same options. The goal is to do what you reasonably can within your circumstances, and advocate for systemic changes that make sustainable choices accessible to all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="footer-links">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#assessment">Risk Tool</a>
+    <a href="#carbon">Carbon Estimator</a>
+    <a href="#tracker">Eco Tracker</a>
+    <a href="#checklist">Preparedness</a>
+    <a href="#awareness">Learn</a>
+  </div>
+  <p>
+    <strong>🛡️ ClimateShield</strong> — Smart Climate Risk &amp; Environmental Protection System
+  </p>
+  <p style="margin-top:6px;opacity:0.7;max-width:700px;margin-left:auto;margin-right:auto;">
+    ⚠️ <strong>Important Disclaimer:</strong> ClimateShield is an educational prototype built for a college hackathon demonstration.
+    All risk scores, assessments, and carbon footprint estimates are simplified illustrative calculations and are <em>not</em> scientific climate models, official weather forecasts, or verified emergency warnings.
+    Always consult your <strong>local meteorological authority</strong>, <strong>disaster management agencies</strong>, and <strong>public health officials</strong> for real-world decisions.
+  </p>
+  <p style="margin-top:10px;opacity:0.5;font-size:0.76rem;">
+    All calculations are performed locally in your browser. No personal data is collected or transmitted. ✅ Privacy-first design.
+    &nbsp;|&nbsp; Built with HTML · CSS · JavaScript (no external libraries)
+    &nbsp;|&nbsp; Version 1.0.0
+  </p>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+"use strict";
+
+// ============================================================
+// CONSTANTS & CONFIGURATION
+// ============================================================
+
+/**
+ * Risk level thresholds (0–100 scale).
+ * Changing these values will affect the entire application.
+ */
+const RISK_THRESHOLDS = {
+  LOW:      { max: 24, label: "Low",      color: "var(--green-mid)", barClass: "bar-low",      levelClass: "level-low"      },
+  MODERATE: { max: 49, label: "Moderate", color: "var(--yellow)",    barClass: "bar-moderate", levelClass: "level-moderate" },
+  HIGH:     { max: 74, label: "High",     color: "var(--orange)",    barClass: "bar-high",     levelClass: "level-high"     },
+  SEVERE:   { max: 100,label: "Severe",   color: "var(--red)",       barClass: "bar-severe",   levelClass: "level-severe"   }
+};
+
+/**
+ * Eco actions for the tracker.
+ * Each action has an id (used for localStorage), icon, title, description, and point value.
+ */
+const ECO_ACTIONS = [
+  { id:"bottle",    icon:"🫙", title:"Reusable Water Bottle",   desc:"Carry a reusable bottle instead of buying single-use plastic", points:10 },
+  { id:"walk",      icon:"🚶", title:"Walk / Cycle Short Trips", desc:"Walk or cycle for suitable journeys under 3–4 km",             points:15 },
+  { id:"transit",   icon:"🚌", title:"Use Public Transport",     desc:"Take a bus or train instead of a private vehicle",             points:15 },
+  { id:"lights",    icon:"💡", title:"Save Electricity",         desc:"Switch off lights, fans, and appliances when not in use",      points:10 },
+  { id:"food",      icon:"🥘", title:"Reduce Food Waste",        desc:"Plan meals, store food properly, and compost scraps",          points:10 },
+  { id:"recycle",   icon:"♻️", title:"Separate Recyclable Waste",desc:"Sort paper, plastic, glass, and metal for recycling",          points:12 },
+  { id:"water",     icon:"💧", title:"Conserve Water",           desc:"Take shorter showers, fix leaks, reuse suitable water",        points:10 },
+  { id:"bag",       icon:"👜", title:"Reusable Shopping Bag",    desc:"Bring a cloth or jute bag when shopping",                     points:8  },
+  { id:"plant",     icon:"🌱", title:"Plant or Care for a Tree", desc:"Plant a sapling or care for an existing tree or garden",      points:20 },
+];
+
+/**
+ * Preparedness checklist items grouped by category.
+ */
+const CHECKLIST_ITEMS = {
+  emergency: [
+    { id:"ck-water",   text:"Drinking water stored (at least 2 litres per person per day for 3+ days)" },
+    { id:"ck-food",    text:"Non-perishable food items packed" },
+    { id:"ck-firstaid",text:"First-aid kit available and stocked" },
+    { id:"ck-meds",    text:"Essential medications (if needed) and prescriptions stored safely" },
+    { id:"ck-docs",    text:"Important documents (ID, insurance, etc.) stored in a waterproof bag" },
+    { id:"ck-cash",    text:"Small amount of emergency cash kept accessible" },
+  ],
+  home: [
+    { id:"ck-torch",   text:"Torch / flashlight with spare batteries (or hand-cranked)" },
+    { id:"ck-radio",   text:"Battery-powered or hand-cranked radio for news updates" },
+    { id:"ck-evac",    text:"Know your nearest evacuation route and shelter" },
+    { id:"ck-drain",   text:"Check that home drains and gutters are clear before monsoon season" },
+    { id:"ck-flood",   text:"Important items stored off the floor in flood-prone areas" },
+    { id:"ck-kit",     text:"Emergency go-bag prepared and easily accessible" },
+  ],
+  comm: [
+    { id:"ck-phone",   text:"Mobile phone charged; power bank available" },
+    { id:"ck-contacts",text:"Emergency contacts saved offline (written down)" },
+    { id:"ck-alerts",  text:"Registered or following trusted local weather/disaster alerts" },
+    { id:"ck-meetpt",  text:"Family or household meeting point agreed upon" },
+    { id:"ck-imdapp",  text:"Weather / IMD app installed for local alerts" },
+    { id:"ck-neighbor",text:"Know and stay connected with neighbours who may need help" },
+  ]
+};
+
+/**
+ * Pre-defined educational test scenarios.
+ * Each scenario sets form field values for demonstration.
+ * IMPORTANT: These are illustrative values, not real measurements.
+ */
+const SCENARIOS = {
+  heat:      { city:"Hyderabad (Sample)", temp:44, rainfall:0, recentRain:0, water:50, aqi:110, floodHist:0, dryDays:35 },
+  flood:     { city:"Coastal City (Sample)", temp:29, rainfall:4, recentRain:4, water:90, aqi:70, floodHist:3, dryDays:0 },
+  drought:   { city:"Semi-arid Region (Sample)", temp:38, rainfall:0, recentRain:0, water:15, aqi:95, floodHist:0, dryDays:80 },
+  air:       { city:"Metro City (Sample)", temp:30, rainfall:0, recentRain:1, water:70, aqi:290, floodHist:0, dryDays:10 },
+  normal:    { city:"Average Town (Sample)", temp:28, rainfall:1, recentRain:2, water:80, aqi:45, floodHist:1, dryDays:5  },
+  community: { city:"Green Community (Sample)", temp:27, rainfall:1, recentRain:2, water:90, aqi:30, floodHist:0, dryDays:3  },
+};
+
+// ============================================================
+// UTILITY FUNCTIONS
+// ============================================================
+
+/**
+ * Clamp a value between min and max.
+ * Prevents risk scores from going below 0 or above 100.
+ */
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+/**
+ * Return risk level object for a given numeric score.
+ */
+function getRiskLevel(score) {
+  if (score <= RISK_THRESHOLDS.LOW.max)      return RISK_THRESHOLDS.LOW;
+  if (score <= RISK_THRESHOLDS.MODERATE.max) return RISK_THRESHOLDS.MODERATE;
+  if (score <= RISK_THRESHOLDS.HIGH.max)     return RISK_THRESHOLDS.HIGH;
+  return RISK_THRESHOLDS.SEVERE;
+}
+
+/**
+ * Build and return an HTML summary bar row (label + progress bar + score).
+ */
+function buildBarRow(icon, label, score) {
+  const level = getRiskLevel(score);
+  return `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <span style="font-size:1.1rem;flex-shrink:0;">${icon}</span>
+      <span style="font-size:0.82rem;font-weight:600;width:130px;flex-shrink:0;">${label}</span>
+      <div class="progress-wrap" style="flex:1;">
+        <div class="progress-bar ${level.barClass}" style="width:${score}%"></div>
+      </div>
+      <span style="font-size:0.82rem;font-weight:700;width:28px;text-align:right;color:${level.color};">${score}</span>
+      <span class="risk-level ${level.levelClass}" style="font-size:0.72rem;padding:2px 8px;flex-shrink:0;">${level.label}</span>
+    </div>`;
+}
+
+// ============================================================
+// DASHBOARD INITIALISATION
+// ============================================================
+
+/**
+ * Populate the dashboard summary bars with the pre-set sample values.
+ * These are static sample data — clearly labelled as such.
+ */
+function initDashboard() {
+  const summaryBars = document.getElementById('dash-summary-bars');
+  if (!summaryBars) return;
+  summaryBars.innerHTML =
+    buildBarRow('🌡️', 'Heatwave Risk',  55) +
+    buildBarRow('🌊', 'Flood Risk',     35) +
+    buildBarRow('🏜️', 'Drought Risk',   30) +
+    buildBarRow('💨', 'Air Quality',    40);
+}
+
+// ============================================================
+// SCENARIO LOADER
+// ============================================================
+
+/**
+ * Populate the assessment form with a pre-defined educational scenario.
+ * Scrolls to the form and clears previous results.
+ */
+function loadScenario(key) {
+  const s = SCENARIOS[key];
+  if (!s) return;
+
+  document.getElementById('inp-city').value        = s.city;
+  document.getElementById('inp-temp').value        = s.temp;
+  document.getElementById('inp-rainfall').value    = s.rainfall;
+  document.getElementById('inp-recent-rain').value = s.recentRain;
+  document.getElementById('inp-water').value       = s.water;
+  document.getElementById('inp-aqi').value         = s.aqi;
+  document.getElementById('inp-flood-hist').value  = s.floodHist;
+  document.getElementById('inp-dry-days').value    = s.dryDays;
+
+  // Hide previous results and errors
+  document.getElementById('assess-results').classList.add('hidden');
+  document.getElementById('assess-error').classList.add('hidden');
+
+  // Scroll to the form
+  document.getElementById('assessment').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ============================================================
+// RISK CALCULATION ALGORITHM
+// ============================================================
+
+/**
+ * HEAT RISK SCORE ALGORITHM
+ *
+ * Factors:
+ *   - Temperature relative to a "comfortable" baseline of 25°C
+ *   - For every °C above 25°C → +3 points (up to a maximum)
+ *   - Very extreme temperatures (≥42°C) add extra penalty
+ *   - Long dry spells amplify heat risk
+ *
+ * Formula:  heatScore = clamp( (temp - 25) * 3 + dryDaysBonus + extremeBonus, 0, 100 )
+ *
+ * Note: These thresholds and weights are educational approximations.
+ */
+function calcHeatRisk(temp, dryDays) {
+  const reasons = [];
+  let score = 0;
+
+  if (temp <= 25) {
+    score = 0;
+    reasons.push(`Temperature ${temp}°C is within a comfortable range (baseline 25°C) → 0 points`);
+  } else {
+    const tempContrib = (temp - 25) * 3;
+    score += tempContrib;
+    reasons.push(`Temperature ${temp}°C is ${temp - 25}°C above the 25°C baseline → +${tempContrib} points`);
+  }
+
+  // Extra penalty for extreme heat
+  if (temp >= 42) {
+    score += 15;
+    reasons.push(`Temperature ≥42°C (extreme heat) → +15 extra points`);
+  } else if (temp >= 38) {
+    score += 8;
+    reasons.push(`Temperature ≥38°C (very hot) → +8 extra points`);
+  }
+
+  // Dry days amplify heat risk
+  if (dryDays >= 60) {
+    score += 15;
+    reasons.push(`${dryDays} consecutive dry days (very prolonged) → +15 points`);
+  } else if (dryDays >= 30) {
+    score += 8;
+    reasons.push(`${dryDays} consecutive dry days → +8 points`);
+  } else if (dryDays >= 15) {
+    score += 4;
+    reasons.push(`${dryDays} consecutive dry days → +4 points`);
+  }
+
+  return { score: clamp(Math.round(score), 0, 100), reasons };
+}
+
+/**
+ * FLOOD RISK SCORE ALGORITHM
+ *
+ * Factors:
+ *   - Current rainfall intensity (0=none, 1=light, 2=moderate, 3=heavy, 4=extreme)
+ *   - Recent 7-day rainfall (0=dry, 1=little, 2=normal, 3=above, 4=excessive)
+ *   - Local flood history (0=none, 1=occasional, 2=every few years, 3=frequent)
+ *
+ * Formula:  floodScore = rainfallPoints + recentRainPoints + historyPoints
+ */
+function calcFloodRisk(rainfall, recentRain, floodHist) {
+  const reasons = [];
+  let score = 0;
+
+  // Current rainfall intensity
+  const rainfallMap = [0, 10, 22, 40, 60];
+  const rainfallLabels = ['None', 'Light', 'Moderate', 'Heavy', 'Extreme'];
+  if (rainfall >= 0 && rainfall <= 4) {
+    score += rainfallMap[rainfall];
+    reasons.push(`Current rainfall intensity: ${rainfallLabels[rainfall]} → +${rainfallMap[rainfall]} points`);
+  }
+
+  // Recent 7-day rainfall
+  const recentMap = [0, 5, 12, 22, 35];
+  const recentLabels = ['Very dry', 'Below normal', 'Normal', 'Above normal', 'Excessive'];
+  if (recentRain >= 0 && recentRain <= 4) {
+    score += recentMap[recentRain];
+    reasons.push(`Recent 7-day rainfall: ${recentLabels[recentRain]} → +${recentMap[recentRain]} points`);
+  }
+
+  // Flood history
+  const histMap = [0, 5, 12, 20];
+  const histLabels = ['No history', 'Occasional', 'Every few years', 'Frequent'];
+  if (floodHist >= 0 && floodHist <= 3) {
+    score += histMap[floodHist];
+    reasons.push(`Flood history: ${histLabels[floodHist]} → +${histMap[floodHist]} points`);
+  }
+
+  return { score: clamp(Math.round(score), 0, 100), reasons };
+}
+
+/**
+ * DROUGHT RISK SCORE ALGORITHM
+ *
+ * Factors:
+ *   - Water availability percentage (lower = higher drought risk)
+ *   - Consecutive dry days
+ *   - Recent rainfall (very dry = amplifies drought risk)
+ *   - Temperature (high temperatures dry out soil and water bodies faster)
+ *
+ * Formula: droughtScore = waterShortagePoints + dryDayPoints + recentRainContrib + heatContrib
+ */
+function calcDroughtRisk(water, dryDays, recentRain, temp) {
+  const reasons = [];
+  let score = 0;
+
+  // Water availability (inverted scale: 0% = severe shortage)
+  const waterContrib = Math.round((100 - water) * 0.45);
+  score += waterContrib;
+  reasons.push(`Water availability: ${water}% → shortage factor +${waterContrib} points`);
+
+  // Dry days
+  if (dryDays >= 90) {
+    score += 30; reasons.push(`${dryDays} consecutive dry days (very severe) → +30 points`);
+  } else if (dryDays >= 60) {
+    score += 20; reasons.push(`${dryDays} consecutive dry days (severe) → +20 points`);
+  } else if (dryDays >= 30) {
+    score += 12; reasons.push(`${dryDays} consecutive dry days → +12 points`);
+  } else if (dryDays >= 15) {
+    score += 6;  reasons.push(`${dryDays} consecutive dry days → +6 points`);
+  }
+
+  // Very dry recent rainfall amplifies drought
+  if (recentRain === 0) {
+    score += 10; reasons.push(`Very dry recent 7 days → +10 extra drought points`);
+  }
+
+  // High temperature dries resources faster
+  if (temp >= 38) {
+    score += 8;  reasons.push(`High temperature (${temp}°C) accelerates water evaporation → +8 points`);
+  } else if (temp >= 32) {
+    score += 4;  reasons.push(`Elevated temperature (${temp}°C) → +4 points`);
+  }
+
+  return { score: clamp(Math.round(score), 0, 100), reasons };
+}
+
+/**
+ * AIR POLLUTION RISK SCORE ALGORITHM
+ *
+ * Based on the Air Quality Index (AQI):
+ *   0–50   → Good       → risk score: 0–12
+ *   51–100 → Moderate   → risk score: 13–40
+ *   101–150→ Sensitive  → risk score: 41–60
+ *   151–200→ Unhealthy  → risk score: 61–80
+ *   201–300→ Very Unhealthy → 81–95
+ *   301–500→ Hazardous  → 96–100
+ */
+function calcAirRisk(aqi) {
+  const reasons = [];
+  let score = 0;
+
+  if      (aqi <= 50)  { score = Math.round(aqi * 0.24);         reasons.push(`AQI ${aqi} (Good) → ~${score} points`); }
+  else if (aqi <= 100) { score = Math.round(12 + (aqi-50)*0.56); reasons.push(`AQI ${aqi} (Moderate) → ~${score} points`); }
+  else if (aqi <= 150) { score = Math.round(40 + (aqi-100)*0.4); reasons.push(`AQI ${aqi} (Unhealthy for Sensitive Groups) → ~${score} points`); }
+  else if (aqi <= 200) { score = Math.round(60 + (aqi-150)*0.4); reasons.push(`AQI ${aqi} (Unhealthy) → ~${score} points`); }
+  else if (aqi <= 300) { score = Math.round(80 + (aqi-200)*0.15);reasons.push(`AQI ${aqi} (Very Unhealthy) → ~${score} points`); }
+  else                 { score = Math.round(95 + (aqi-300)*0.02);reasons.push(`AQI ${aqi} (Hazardous) → ~${score} points`); }
+
+  return { score: clamp(Math.round(score), 0, 100), reasons };
+}
+
+/**
+ * OVERALL CLIMATE RISK SCORE
+ *
+ * The four sub-scores are combined using a weighted average.
+ * Weights reflect the typical relative severity in the scenario.
+ * Highest individual sub-score also gets an extra "peak risk" contribution.
+ *
+ * Weights: Heat 30% · Flood 30% · Drought 25% · Air 15%
+ * Peak bonus: adds (max_sub_score - weighted_avg) * 0.15 to ensure the
+ *   most severe risk is reflected in the overall score.
+ *
+ * Note: The formula is intentionally simple and educational.
+ */
+function calcOverallRisk(heat, flood, drought, air) {
+  const weighted = heat * 0.30 + flood * 0.30 + drought * 0.25 + air * 0.15;
+  const peak = Math.max(heat, flood, drought, air);
+  const overall = weighted + (peak - weighted) * 0.15;
+  return clamp(Math.round(overall), 0, 100);
+}
+
+// ============================================================
+// SAFETY RECOMMENDATIONS
+// ============================================================
+
+/**
+ * Return safety recommendation HTML based on risk scores.
+ * Higher risk → more detailed / urgent recommendations.
+ * All recommendations are educational and non-prescriptive.
+ */
+function buildRecommendations(heatScore, floodScore, droughtScore, airScore) {
+  let html = '';
+
+  if (heatScore >= 25) {
+    const level = getRiskLevel(heatScore).label;
+    html += `<div class="rec-card heat">
+      <h4>🌡️ Heatwave Recommendations (${level} Risk — Score: ${heatScore})</h4>
+      <ul>
+        <li>Drink water regularly throughout the day — do not wait until you feel thirsty.</li>
+        <li>Avoid strenuous outdoor activity during the hottest hours (typically 11 am – 4 pm).</li>
+        <li>Seek shade or a cool indoor space; use fans and ensure ventilation.</li>
+        ${heatScore >= 50 ? '<li>Check on children, older adults, and people with health conditions regularly.</li>' : ''}
+        ${heatScore >= 75 ? '<li>Consider cooling centres if available; heat at this level can be dangerous for vulnerable people.</li>' : ''}
+        <li>Wear light-coloured, loose-fitting clothing when outdoors.</li>
+        <li>Never leave children or pets in parked vehicles, even briefly.</li>
+        <li><em>Consult your local health authority if experiencing heat-related symptoms.</em></li>
+      </ul>
+    </div>`;
+  }
+
+  if (floodScore >= 25) {
+    const level = getRiskLevel(floodScore).label;
+    html += `<div class="rec-card flood">
+      <h4>🌊 Flood Risk Recommendations (${level} Risk — Score: ${floodScore})</h4>
+      <ul>
+        <li>Follow official weather alerts from your national/local meteorological authority.</li>
+        <li>Avoid walking or driving through floodwater — even shallow water can be dangerous.</li>
+        <li>Keep essential items, emergency contacts, and important documents accessible.</li>
+        ${floodScore >= 50 ? '<li>Move valuables and electronics to higher ground or elevated shelves in flood-prone areas.</li>' : ''}
+        ${floodScore >= 75 ? '<li>Be ready to follow evacuation instructions from local authorities immediately.</li><li>Do not return home until authorities confirm it is safe.</li>' : ''}
+        <li>Stay away from rivers, streams, and drainage channels during heavy rain.</li>
+        <li><em>Always follow guidance from your local Disaster Management Authority.</em></li>
+      </ul>
+    </div>`;
+  }
+
+  if (droughtScore >= 25) {
+    const level = getRiskLevel(droughtScore).label;
+    html += `<div class="rec-card drought">
+      <h4>🏜️ Drought & Water Conservation (${level} Risk — Score: ${droughtScore})</h4>
+      <ul>
+        <li>Repair household water leaks promptly — small leaks waste significant water over time.</li>
+        <li>Reduce unnecessary water use: shorter showers, turning off taps when not in use.</li>
+        <li>Reuse suitable household water (e.g., rinse water for watering plants).</li>
+        ${droughtScore >= 50 ? '<li>Consider rainwater harvesting systems where appropriate and legally permitted.</li>' : ''}
+        ${droughtScore >= 50 ? '<li>Coordinate with community members on shared water conservation strategies.</li>' : ''}
+        ${droughtScore >= 75 ? '<li>Seek guidance from local water authorities about water use restrictions or alternative sources.</li>' : ''}
+        <li>Reduce irrigation by watering plants in the evening to minimise evaporation.</li>
+        <li><em>Contact your local water utility for current water availability information.</em></li>
+      </ul>
+    </div>`;
+  }
+
+  if (airScore >= 25) {
+    const level = getRiskLevel(airScore).label;
+    html += `<div class="rec-card air">
+      <h4>💨 Air Quality Recommendations (${level} Risk — Score: ${airScore})</h4>
+      <ul>
+        <li>Check trusted local AQI information (e.g., government air quality monitoring websites or apps).</li>
+        <li>Reduce strenuous outdoor physical activity when AQI is elevated.</li>
+        ${airScore >= 50 ? '<li>Keep windows and doors closed during high-pollution periods if indoors is cleaner.</li>' : ''}
+        ${airScore >= 50 ? '<li>People with asthma, heart conditions, or respiratory issues should follow their doctor\'s advice carefully.</li>' : ''}
+        ${airScore >= 75 ? '<li>Consider wearing an appropriate mask (N95 or equivalent) if outdoor exposure is unavoidable during hazardous AQI.</li>' : ''}
+        <li>Avoid burning waste or using fire in ways that add to air pollution.</li>
+        <li><em>Follow public health guidance for your area, especially if experiencing breathing difficulties.</em></li>
+      </ul>
+    </div>`;
+  }
+
+  if (!html) {
+    html = `<div class="rec-card" style="background:var(--green-pale);border-color:var(--green);">
+      <h4>✅ Conditions Look Relatively Favourable</h4>
+      <ul>
+        <li>Maintain regular hydration and sun protection habits.</li>
+        <li>Stay informed through trusted local weather and health services.</li>
+        <li>Keep your emergency preparedness checklist up to date.</li>
+        <li>Continue eco-friendly actions to help reduce your environmental impact.</li>
+      </ul>
+    </div>`;
+  }
+
+  return html;
+}
+
+// ============================================================
+// ASSESSMENT FORM: VALIDATE & RUN
+// ============================================================
+
+/**
+ * Validate user inputs.
+ * Returns { valid: boolean, errors: string[] }.
+ */
+function validateInputs(temp, rainfall, recentRain, water, aqi, floodHist, dryDays) {
+  const errors = [];
+
+  if (temp === '' || isNaN(temp))                 errors.push("Temperature must be a number.");
+  else if (temp < -20 || temp > 60)               errors.push("Temperature must be between -20°C and 60°C.");
+
+  if (rainfall === '')                             errors.push("Please select a rainfall intensity.");
+  if (recentRain === '')                           errors.push("Please select recent 7-day rainfall.");
+  if (floodHist === '')                            errors.push("Please select local flood history.");
+
+  if (water === '' || isNaN(water))               errors.push("Water availability must be a number.");
+  else if (water < 0 || water > 100)              errors.push("Water availability must be between 0% and 100%.");
+
+  if (aqi === '' || isNaN(aqi))                   errors.push("AQI must be a number.");
+  else if (aqi < 0 || aqi > 500)                  errors.push("AQI must be between 0 and 500.");
+
+  if (dryDays === '' || isNaN(dryDays))           errors.push("Dry days must be a number.");
+  else if (dryDays < 0 || dryDays > 365)          errors.push("Consecutive dry days must be between 0 and 365.");
+
+  return { valid: errors.length === 0, errors };
+}
+
+/**
+ * Main assessment function — triggered by the Analyze button.
+ * Reads form inputs, validates, calculates scores, and displays results.
+ */
+function runAssessment() {
+  const city      = document.getElementById('inp-city').value.trim() || 'Your Location';
+  const temp      = parseFloat(document.getElementById('inp-temp').value);
+  const rainfall  = parseInt(document.getElementById('inp-rainfall').value);
+  const recentRain= parseInt(document.getElementById('inp-recent-rain').value);
+  const water     = parseFloat(document.getElementById('inp-water').value);
+  const aqi       = parseFloat(document.getElementById('inp-aqi').value);
+  const floodHist = parseInt(document.getElementById('inp-flood-hist').value);
+  const dryDays   = parseFloat(document.getElementById('inp-dry-days').value);
+
+  const errorEl = document.getElementById('assess-error');
+  errorEl.classList.add('hidden');
+
+  // Validate inputs
+  const validation = validateInputs(temp, rainfall, recentRain, water, aqi, floodHist, dryDays);
+  if (!validation.valid) {
+    errorEl.innerHTML = '❌ <strong>Please fix these issues:</strong><ul style="margin-top:6px;padding-left:16px;">' +
+      validation.errors.map(e => `<li>${e}</li>`).join('') + '</ul>';
+    errorEl.classList.remove('hidden');
+    errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  // Calculate sub-scores
+  const heatResult    = calcHeatRisk(temp, dryDays);
+  const floodResult   = calcFloodRisk(rainfall, recentRain, floodHist);
+  const droughtResult = calcDroughtRisk(water, dryDays, recentRain, temp);
+  const airResult     = calcAirRisk(aqi);
+  const overallScore  = calcOverallRisk(heatResult.score, floodResult.score, droughtResult.score, airResult.score);
+  const overallLevel  = getRiskLevel(overallScore);
+
+  // Show overall score
+  const resScore = document.getElementById('res-score');
+  const resLevel = document.getElementById('res-level');
+  const resCityLabel = document.getElementById('res-city-label');
+  resScore.textContent = overallScore;
+  resLevel.textContent = overallLevel.label;
+  resScore.style.color = overallLevel.color;
+  resCityLabel.textContent = `📍 ${city}`;
+
+  // Colour the outer card
+  const scoreCard = document.querySelector('#assess-results .overall-score-card');
+  if (overallScore <= 24)      scoreCard.style.background = 'linear-gradient(135deg, var(--green-dark), #1a237e)';
+  else if (overallScore <= 49) scoreCard.style.background = 'linear-gradient(135deg, #f57f17, #1a237e)';
+  else if (overallScore <= 74) scoreCard.style.background = 'linear-gradient(135deg, var(--orange), #7b1fa2)';
+  else                         scoreCard.style.background = 'linear-gradient(135deg, var(--red), #4a148c)';
+
+  // Build bars
+  const barsEl = document.getElementById('res-bars');
+  barsEl.innerHTML =
+    buildBarRow('🌡️', 'Heatwave Risk',  heatResult.score) +
+    buildBarRow('🌊', 'Flood Risk',     floodResult.score) +
+    buildBarRow('🏜️', 'Drought Risk',   droughtResult.score) +
+    buildBarRow('💨', 'Air Quality',    airResult.score);
+
+  // Build algorithm explanation
+  const algoList = document.getElementById('res-algo-list');
+  const allReasons = [
+    `<strong>Heat Risk (${heatResult.score}):</strong> ` + heatResult.reasons.join(' | '),
+    `<strong>Flood Risk (${floodResult.score}):</strong> ` + floodResult.reasons.join(' | '),
+    `<strong>Drought Risk (${droughtResult.score}):</strong> ` + droughtResult.reasons.join(' | '),
+    `<strong>Air Quality Risk (${airResult.score}):</strong> ` + airResult.reasons.join(' | '),
+    `<strong>Overall Score (${overallScore}):</strong> Weighted combination: Heat×30% + Flood×30% + Drought×25% + Air×15%, with a +15% peak-risk adjustment.`
+  ];
+  algoList.innerHTML = allReasons.map(r => `<li style="margin-bottom:6px;">${r}</li>`).join('');
+
+  // Safety recommendations
+  document.getElementById('res-recommendations').innerHTML =
+    buildRecommendations(heatResult.score, floodResult.score, droughtResult.score, airResult.score);
+
+  // Show results
+  const resultsEl = document.getElementById('assess-results');
+  resultsEl.classList.remove('hidden');
+  resultsEl.scrollIntoView({ behavior: 'smooth' });
+}
+
+/**
+ * Reset the assessment form and hide results.
+ */
+function resetAssessment() {
+  ['inp-city','inp-temp','inp-rainfall','inp-recent-rain','inp-water','inp-aqi','inp-flood-hist','inp-dry-days']
+    .forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('assess-results').classList.add('hidden');
+  document.getElementById('assess-error').classList.add('hidden');
+}
+
+// ============================================================
+// CARBON FOOTPRINT CALCULATOR
+// ============================================================
+
+/**
+ * CARBON FOOTPRINT EMISSION FACTORS (simplified educational approximations):
+ *   Car:          0.21  kg CO₂/km  (average petrol passenger car)
+ *   Bus/transit:  0.089 kg CO₂/km  (average public bus)
+ *   Walking/cycling: 0  kg CO₂/km  (zero direct emissions)
+ *   Electricity:  0.70  kg CO₂/kWh (India national grid average estimate)
+ *   Meat meal:    2.5   kg CO₂ each (average, including production)
+ *   Veg meal:     0.5   kg CO₂ each (average)
+ *   Meals/day:    3 assumed → monthly meals = 3 × 30 = 90
+ *   Recycling bonus: reduces waste contribution by ~10-20%
+ *
+ * All factors are approximate and depend on many local variables.
+ */
+const CF_FACTORS = {
+  car:    0.21,   // kg CO2 per km
+  bus:    0.089,  // kg CO2 per km
+  bike:   0,      // zero direct emissions
+  elec:   0.70,   // kg CO2 per kWh (India estimate)
+  meat:   2.5,    // kg CO2 per meat meal
+  veg:    0.5,    // kg CO2 per vegetarian meal
+  mealsPerMonth: 90  // 3 meals/day × 30 days
+};
+
+/**
+ * Calculate and display the carbon footprint estimate.
+ * Updates the result card and tips list.
+ */
+function calcCarbon() {
+  const car     = clamp(parseFloat(document.getElementById('cf-car').value)  || 0, 0, 10000);
+  const bus     = clamp(parseFloat(document.getElementById('cf-bus').value)  || 0, 0, 10000);
+  const elec    = clamp(parseFloat(document.getElementById('cf-elec').value) || 0, 0, 5000);
+  const meatWk  = clamp(parseFloat(document.getElementById('cf-meat').value) || 0, 0, 21);
+  const recycle = parseInt(document.getElementById('cf-recycle').value) || 0;
+
+  // Monthly meat meals & vegetarian meals
+  const meatMonthly = meatWk * 4.33;  // weeks/month ≈ 4.33
+  const vegMonthly  = CF_FACTORS.mealsPerMonth - meatMonthly;
+
+  const carCO2   = car * CF_FACTORS.car;
+  const busCO2   = bus * CF_FACTORS.bus;
+  const elecCO2  = elec * CF_FACTORS.elec;
+  const meatCO2  = Math.max(0, meatMonthly) * CF_FACTORS.meat;
+  const vegCO2   = Math.max(0, vegMonthly)  * CF_FACTORS.veg;
+  const foodCO2  = meatCO2 + vegCO2;
+
+  // Recycling reduces overall waste-processing footprint (simplified)
+  const recycleReduction = recycle === 2 ? 0.90 : recycle === 1 ? 0.95 : 1.0;
+  const wasteComponent   = 20 * recycleReduction; // baseline 20 kg/month waste footprint
+
+  const total = Math.round(carCO2 + busCO2 + elecCO2 + foodCO2 + wasteComponent);
+
+  // Display total
+  document.getElementById('cf-total').textContent = total;
+
+  // Breakdown
+  document.getElementById('cf-breakdown').innerHTML = `
+    <div class="cf-item"><div class="ci-num">${Math.round(carCO2)}</div><div class="ci-label">🚗 Transport</div></div>
+    <div class="cf-item"><div class="ci-num">${Math.round(busCO2)}</div><div class="ci-label">🚌 Public Transit</div></div>
+    <div class="cf-item"><div class="ci-num">${Math.round(elecCO2)}</div><div class="ci-label">⚡ Electricity</div></div>
+    <div class="cf-item"><div class="ci-num">${Math.round(foodCO2)}</div><div class="ci-label">🍽️ Food</div></div>
+    <div class="cf-item"><div class="ci-num">${Math.round(wasteComponent)}</div><div class="ci-label">🗑️ Waste</div></div>
+  `;
+
+  // Generate personalised tips
+  const tips = [];
+  if (carCO2 > 100) tips.push(`Your car travel contributes ~${Math.round(carCO2)} kg CO₂/month. Consider carpooling, combining trips, or using public transport where practical.`);
+  if (elecCO2 > 80) tips.push(`Your electricity use adds ~${Math.round(elecCO2)} kg CO₂/month. Switch off appliances on standby and consider energy-efficient bulbs.`);
+  if (meatWk > 7)   tips.push(`You eat meat ~${meatWk} meals/week. Even one or two plant-based meals per week can noticeably reduce your food footprint.`);
+  if (recycle < 2)  tips.push(`Improving your recycling practices and composting food scraps can reduce your waste footprint.`);
+  if (busCO2 < carCO2 * 0.5 && car > 50) tips.push(`Public transport emits about 60% less CO₂ per km than a typical car. Using it more often helps.`);
+  if (tips.length === 0) tips.push(`Great habits! Keep maintaining your eco-friendly lifestyle and encourage others around you.`);
+  tips.push(`Remember: these are approximate estimates. The exact values depend on your local energy mix, vehicle type, and lifestyle.`);
+
+  document.getElementById('cf-tips-list').innerHTML = tips.map(t => `<li style="margin-bottom:6px;">${t}</li>`).join('');
+}
+
+// ============================================================
+// ECO-FRIENDLY ACTION TRACKER
+// ============================================================
+
+const TRACKER_KEY = 'climateshield_eco_actions';
+
+/**
+ * Load completed actions from browser localStorage.
+ * Returns a Set of completed action IDs.
+ */
+function loadTrackerState() {
+  try {
+    const stored = localStorage.getItem(TRACKER_KEY);
+    return stored ? new Set(JSON.parse(stored)) : new Set();
+  } catch (e) {
+    return new Set();
+  }
+}
+
+/**
+ * Save completed actions to localStorage.
+ */
+function saveTrackerState(doneSet) {
+  try {
+    localStorage.setItem(TRACKER_KEY, JSON.stringify([...doneSet]));
+  } catch (e) {
+    // localStorage may be unavailable in some environments
+  }
+}
+
+/**
+ * Toggle an eco action on/off, update the display, and save to localStorage.
+ */
+function toggleAction(id) {
+  const state = loadTrackerState();
+  if (state.has(id)) {
+    state.delete(id);
+  } else {
+    state.add(id);
+  }
+  saveTrackerState(state);
+  renderTracker(state);
+}
+
+/**
+ * Render all eco-action cards and update the progress circle.
+ */
+function renderTracker(state) {
+  if (!state) state = loadTrackerState();
+
+  const totalPoints = ECO_ACTIONS.reduce((s, a) => s + a.points, 0);
+  const earnedPoints = ECO_ACTIONS.filter(a => state.has(a.id)).reduce((s, a) => s + a.points, 0);
+  const pct = totalPoints > 0 ? Math.round((earnedPoints / totalPoints) * 100) : 0;
+
+  // Update progress circle
+  const circle = document.getElementById('eco-circle');
+  circle.textContent = pct + '%';
+  circle.style.background = `conic-gradient(var(--green) ${pct}%, var(--gray-200) ${pct}%)`;
+
+  // Update text
+  const doneCount = ECO_ACTIONS.filter(a => state.has(a.id)).length;
+  document.getElementById('eco-prog-title').textContent =
+    doneCount === 0 ? 'Start your eco journey!'
+    : doneCount === ECO_ACTIONS.length ? '🎉 Amazing! All actions completed!'
+    : `${doneCount} of ${ECO_ACTIONS.length} actions completed`;
+  document.getElementById('eco-prog-sub').textContent =
+    `Sustainability score: ${pct}% (${earnedPoints} / ${totalPoints} points)`;
+
+  // Render action cards
+  const grid = document.getElementById('action-grid');
+  grid.innerHTML = ECO_ACTIONS.map(action => {
+    const done = state.has(action.id);
+    return `
+      <div class="action-card ${done ? 'done' : ''}"
+           onclick="toggleAction('${action.id}')"
+           role="button" tabindex="0" aria-pressed="${done}"
+           aria-label="${action.title}: ${done ? 'completed' : 'not completed'}"
+           onkeydown="if(event.key==='Enter'||event.key===' ')toggleAction('${action.id}')">
+        <span class="ac-icon" aria-hidden="true">${action.icon}</span>
+        <div class="ac-text">
+          <h4>${action.title}</h4>
+          <p>${action.desc}</p>
+          <small style="color:var(--green-dark);font-weight:600;">${action.points} pts</small>
+        </div>
+        <span class="ac-check" aria-hidden="true">${done ? '✅' : '⬜'}</span>
+      </div>`;
+  }).join('');
+}
+
+/**
+ * Reset all eco actions (with confirmation).
+ */
+function resetTracker() {
+  if (confirm('Reset all eco-action progress? This cannot be undone.')) {
+    saveTrackerState(new Set());
+    renderTracker(new Set());
+  }
+}
+
+// ============================================================
+// PREPAREDNESS CHECKLIST
+// ============================================================
+
+const CHECKLIST_KEY = 'climateshield_checklist';
+
+/**
+ * Load checklist state from localStorage.
+ */
+function loadChecklistState() {
+  try {
+    const stored = localStorage.getItem(CHECKLIST_KEY);
+    return stored ? new Set(JSON.parse(stored)) : new Set();
+  } catch (e) { return new Set(); }
+}
+
+/**
+ * Save checklist state to localStorage.
+ */
+function saveChecklistState(state) {
+  try {
+    localStorage.setItem(CHECKLIST_KEY, JSON.stringify([...state]));
+  } catch (e) {}
+}
+
+/**
+ * Render a checklist group into a target element.
+ */
+function renderChecklistGroup(items, targetId, state) {
+  const el = document.getElementById(targetId);
+  if (!el) return;
+  el.innerHTML = items.map(item => `
+    <li>
+      <input type="checkbox" id="${item.id}" ${state.has(item.id) ? 'checked' : ''}
+             onchange="toggleChecklistItem('${item.id}')" aria-label="${item.text}" />
+      <label for="${item.id}" class="${state.has(item.id) ? 'checked' : ''}">${item.text}</label>
+    </li>`).join('');
+}
+
+/**
+ * Render all checklists and update the counter.
+ */
+function renderChecklist(state) {
+  if (!state) state = loadChecklistState();
+  renderChecklistGroup(CHECKLIST_ITEMS.emergency, 'checklist-emergency', state);
+  renderChecklistGroup(CHECKLIST_ITEMS.home,      'checklist-home',      state);
+  renderChecklistGroup(CHECKLIST_ITEMS.comm,      'checklist-comm',      state);
+
+  const allItems = [...CHECKLIST_ITEMS.emergency, ...CHECKLIST_ITEMS.home, ...CHECKLIST_ITEMS.comm];
+  document.getElementById('check-total').textContent = allItems.length;
+  document.getElementById('check-done').textContent  = allItems.filter(i => state.has(i.id)).length;
+}
+
+/**
+ * Toggle a checklist item.
+ */
+function toggleChecklistItem(id) {
+  const state = loadChecklistState();
+  if (state.has(id)) state.delete(id); else state.add(id);
+  saveChecklistState(state);
+  renderChecklist(state);
+}
+
+/**
+ * Reset checklist (with confirmation).
+ */
+function resetChecklist() {
+  if (confirm('Reset all checklist items? This cannot be undone.')) {
+    saveChecklistState(new Set());
+    renderChecklist(new Set());
+  }
+}
+
+// ============================================================
+// AWARENESS TABS
+// ============================================================
+
+/**
+ * Show the selected awareness tab and hide others.
+ */
+function showTab(name, btn) {
+  // Hide all tab contents
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+
+  // Show selected
+  const target = document.getElementById('tab-' + name);
+  if (target) target.classList.add('active');
+  if (btn)   { btn.classList.add('active'); btn.setAttribute('aria-selected', 'true'); }
+}
+
+// ============================================================
+// NAVIGATION: ACTIVE LINK HIGHLIGHTING ON SCROLL
+// ============================================================
+
+/**
+ * Update the active navigation link based on scroll position.
+ */
+function updateNavActive() {
+  const sections = ['dashboard','assessment','carbon','tracker','checklist','awareness'];
+  const navLinks = document.querySelectorAll('.nav-links a');
+  let current = 'dashboard';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 100) current = id;
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', updateNavActive, { passive: true });
+
+// ============================================================
+// INITIALISATION
+// ============================================================
+
+/**
+ * Run everything once the page has loaded.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  initDashboard();
+  calcCarbon();
+  renderTracker();
+  renderChecklist();
+});
+</script>
+
+</body>
+</html>
